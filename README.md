@@ -62,15 +62,15 @@ Both `benchmark.py` and `plot.py` set `matplotlib.rcParams["text.usetex"] = True
 
 Pick a dataset file:
 
-* `./N02E021.npy`
-* `./N17E073.npy`
-* `./N45W123.npy`
-* `./N47W124.npy`
+* `./datasets/N02E021.npy`
+* `./datasets/N17E073.npy`
+* `./datasets/N45W123.npy`
+* `./datasets/N47W124.npy`
 
 Then run, for example:
 
 ```bash
-python3 benchmark.py ./N47W124.npy --variance-ratios 0.9 0.8 0.7 0.6 0.5
+python3 benchmark.py ./datasets/N47W124.npy --variance-ratios 0.9 0.8 0.7 0.6 0.5
 ```
 
 **What this does**
