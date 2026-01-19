@@ -1,4 +1,4 @@
-# Code Appendix: Near-Optimal Informative Path Planning with Guaranteed Estimation Uncertainty
+# Near-Optimal Informative Path Planning with Guaranteed Estimation Uncertainty
 
 This repository contains the reference code used in the paper. It implements and benchmarks informative path planning (IPP) methods that **guarantee a target bound on Gaussian-process (GP) posterior variance** over a monitoring region.
 
