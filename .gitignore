@@ -3,3 +3,4 @@ sgp-tools/
 *png
 *json
 *pdf
+.venv/
