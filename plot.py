@@ -32,7 +32,7 @@ def load_results(path):
 
 def prepare_data(data):
     runs = data["runs"]
-    methods = sorted({r["method"] for r in runs})
+    methods = ["GreedyCover", "GCBCover", "GCBCover-Dist", "HexCover", "ContinuousSGP"]
     variance_ratios = sorted({float(r["variance_ratio"]) for r in runs})
 
     lookup = {(r["method"], float(r["variance_ratio"])): r for r in runs}
@@ -151,9 +151,14 @@ def plot_metrics(
         for i, method in enumerate(methods):
             d = per_method[method]
             if "Dist" in method:
-                method_ = "GCBCover (Dist Budget)"
+                method_ = "GCBCover (Dist Budget; Ours)"
+            elif "SGP" in method:
+                method_ = "Continuous-SGP"
+            elif "GCB" in method or "Greedy" in method:
+                method_ = f"{method} (Ours)"
             else:
                 method_ = method
+
 
             ax.plot(
                 d["variance_ratio"],
@@ -172,7 +177,7 @@ def plot_metrics(
                 linestyle="--",
                 linewidth=2.0,
                 marker=None,
-                label="Target variance",
+                label="Target Variance",
             )
 
         ax.set_title(f"{label} vs Variance Ratio")
@@ -180,7 +185,7 @@ def plot_metrics(
         ax.set_ylabel(label)
         ax.grid(True, alpha=0.3)
         if "Max" in label:
-            ax.legend()
+            ax.legend(framealpha=0.5)
 
         # x-axis from largest to smallest
         ax.invert_xaxis()
