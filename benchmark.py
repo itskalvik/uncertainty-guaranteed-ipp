@@ -4,6 +4,9 @@ import json
 import argparse
 from time import time
 
+os.environ["TF_ENABLE_ONEDNN_OPTS"] = "0"  # Disable oneDNN to avoid potential numerical issues in GPFlow optimization
+os.environ["CUDA_VISIBLE_DEVICES"] = "-1"  # Force CPU usage for reproducibility
+
 # --- NO TYPE 3 FONTS IN PDF OUTPUT ---
 import matplotlib as mpl
 mpl.rcParams["pdf.fonttype"] = 42
@@ -80,7 +83,7 @@ def parse_args():
         "--methods",
         type=str,
         nargs="+",
-        default=["HexCover", "GreedyCover", "GCBCover", "GCBCover-Dist"],
+        default=["HexCover", "GreedyCover", "GCBCover", "GCBCover-Dist", "ContinuousSGP"],
         help="List of coverage methods to benchmark.",
     )
     parser.add_argument(
@@ -288,24 +291,40 @@ def main():
             
             kwargs = {}
             if 'Dist' in method:
-                kwargs['distance_budget'] = distance - 20
+                kwargs['distance_budget'] = ref_distance - 20
 
-            cmodel = get_method(method.split('-')[0])(
-                num_sensing=len(X_train),
-                X_objective=X_train,
-                kernel=kernel,
-                noise_variance=noise_variance,
-            )
+            if 'Cover' not in method:
+                num_sensing = np.min([ref_num_placements, 170])
+                cmodel = get_method(method.split('-')[0])(
+                                    num_sensing=num_sensing,
+                                    X_objective=X_train,
+                                    kernel=kernel,
+                                    noise_variance=noise_variance)
 
-            s_time = time()
-            X_sol, fovs = cmodel.optimize(
-                post_var_threshold=post_var_threshold,
-                return_fovs=True,
-                start_nodes=X_init[None, -1],
-                **kwargs
-            )
-            X_sol = X_sol[0]
-            run_time = time() - s_time
+                s_time = time()
+                X_sol = cmodel.optimize(optimizer='tf.Nadam',
+                                        learning_rate=1e-1)
+                X_sol = X_sol[0]
+                X_sol, _ = run_tsp(X_sol, start_nodes=X_init[None, -1])
+                X_sol = X_sol[0]
+                run_time = time() - s_time
+                fovs = []
+            else:
+                cmodel = get_method(method.split('-')[0])(
+                                    num_sensing=len(X_train),
+                                    X_objective=X_train,
+                                    kernel=kernel,
+                                    noise_variance=noise_variance)
+
+                s_time = time()
+                X_sol, fovs = cmodel.optimize(
+                    post_var_threshold=post_var_threshold,
+                    return_fovs=True,
+                    start_nodes=X_init[None, -1],
+                    **kwargs
+                )
+                X_sol = X_sol[0]
+                run_time = time() - s_time
 
             # Evaluate solution
             X_pred, y_pred = dataset.get_sensor_data(
@@ -424,7 +443,7 @@ def main():
             run_result = {
                 "method": method,
                 "variance_ratio": float(target_var_ratio),
-                "num_placements": int(len(fovs)),
+                "num_placements": int(len(X_sol)),
                 "max_prior_var": max_prior_var,
                 "target_post_var_threshold": post_var_threshold,
                 "max_posterior_var": max_post_var,
@@ -436,6 +455,10 @@ def main():
                 "Budget": kwargs.get('distance_budget')
             }
             results["runs"].append(run_result)
+
+            if 'GreedyCover' in method:
+                ref_num_placements = int(len(fovs))
+                ref_distance = distance
 
     # ---------------------------------------------------------
     # Save JSON
