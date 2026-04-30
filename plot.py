@@ -184,8 +184,8 @@ def plot_metrics(
         ax.set_xlabel("Variance Ratio")
         ax.set_ylabel(label)
         ax.grid(True, alpha=0.3)
-        if "Max" in label:
-            ax.legend(framealpha=0.5)
+        if "Runtime" in label:
+            ax.legend(framealpha=0.5, loc="upper left")
 
         # x-axis from largest to smallest
         ax.invert_xaxis()
