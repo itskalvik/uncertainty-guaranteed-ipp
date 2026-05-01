@@ -33,7 +33,7 @@ This repository contains the benchmarking suite and scripts required to reproduc
 ```text
 .
 ├── datasets/           # SRTM subsets (N02E021, N17E073, N45W123, N47W124)
-├── appendix.ipynb      # Generates IPP solution figures for the paper appendix
+├── solutions.ipynb     # Generates IPP solution figures for the experiments section
 ├── cover.ipynb         # Reproduces the paper's cover page IPP solutions
 ├── fov.ipynb           # Coverage-map visualizations for the methods section
 ├── benchmark.py        # Main benchmarking script
