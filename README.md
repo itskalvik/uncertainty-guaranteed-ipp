@@ -8,8 +8,8 @@
 <p align="center">
   <a href="https://www.sgp-tools.com/" target="_blank">
     <picture>
-      <source media="(prefers-color-scheme: light)" srcset=".assets/logo_dark.png">
-      <source media="(prefers-color-scheme: dark)" srcset=".assets/SGP-Tools.png">
+      <source media="(prefers-color-scheme: dark)" srcset=".assets/logo_dark.png">
+      <source media="(prefers-color-scheme: light)" srcset=".assets/SGP-Tools.png">
       <img alt="SGP-Tools Logo" src=".assets/SGP-Tools.png" width="300">
     </picture>
   </a>
