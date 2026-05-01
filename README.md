@@ -1,129 +1,104 @@
-# Near-Optimal Informative Path Planning with Guaranteed Estimation Uncertainty
 
-This repository contains the reference code used in the paper. It implements and benchmarks informative path planning (IPP) methods that **guarantee a target bound on Gaussian-process (GP) posterior variance** over a monitoring region.
+# Informative Path Planning with Guaranteed Estimation Uncertainty
 
-The core IPP planners—including **HexCover**, **GreedyCover**, and **GCBCover**—are provided as new modules within the open-source Python package `sgp-tools`.
+[![Paper](https://img.shields.io/badge/arXiv-2602.05198-B31B1B.svg)](https://arxiv.org/pdf/2602.05198)
+[![Conference](https://img.shields.io/badge/RSS-2026-blue)](https://roboticsconference.org/)
+[![Library](https://img.shields.io/badge/Powered%20by-sgp--tools-green)](https://www.sgp-tools.com/)
 
----
+Official repository for the paper **"Informative Path Planning with Guaranteed Estimation Uncertainty"**, published at **Robotics: Science and Systems (RSS), 2026**.
 
-## Repository contents
-
-**Data (SRTM subsets used in the paper’s benchmarks):**
-
-* `N02E021.npy`, `N17E073.npy`, `N45W123.npy`, `N47W124.npy`
-
-**Scripts:**
-
-* `benchmark.py` — run benchmark; saves per-method solution figures and `results.json`.
-* `plot.py` — generate metric-vs-threshold plots from `results.json`.
-
-**Notebooks:**
-
-* `demo.ipynb` — minimal usage examples for each IPP method.
-* `baselines.ipynb` — reproduces baseline visualizations used in the paper’s introduction.
-* `fov_plot.ipynb` — reproduces FoV/coverage-map visualizations used in the methods section.
-
-**Library:**
-
-* `sgp-tools/` — the `sgptools` IPP library (methods, kernels, utilities). **Only** the **HexCover**, **GreedyCover**, and **GCBCover** implementations in `method.py` are original to this repository; the remainder of the library is cloned from the public source.
+This repository contains the benchmarking suite and scripts required to reproduce the figures and experimental results presented in the paper. Our core IPP planners—**GreedyCover** and **GCBCover**—are integrated into the [SGP-Tools](https://www.sgp-tools.com/) library.
 
 ---
 
-## Setup
+## 🛠 Repository Structure
 
-### 1) Create an environment
-
-We recommend a fresh Python environment (e.g., `venv` or `conda`).
-
-### 2) Install `sgptools`
-
-From the repository root:
-
-```bash
-cd sgp-tools/
-python -m pip install -r requirements.txt
-python -m pip install -e .
+```text
+.
+├── datasets/           # SRTM subsets (N02E021, N17E073, N45W123, N47W124)
+├── appendix.ipynb      # Generates IPP solution figures for the paper appendix
+├── cover.ipynb         # Reproduces the paper's cover page IPP solutions
+├── fov.ipynb           # Coverage-map visualizations for the methods section
+├── benchmark.py        # Main benchmarking script
+├── plot.py             # Visualization script for results.json
+├── requirements.txt    # Project dependencies
+└── README.md
 ```
 
-This installs the planners and their dependencies (notably **TensorFlow** and **GPflow**). A GPU is not required.
+---
 
-### 3) LaTeX dependency (for PDF text rendering)
+## 🚀 Getting Started
 
-Both `benchmark.py` and `plot.py` set `matplotlib.rcParams["text.usetex"] = True` to ensure consistent, publication-quality text in figures. If you do **not** have a LaTeX installation available, either:
+### 1. Environment Setup
+We recommend using a virtual environment (`venv`) or `conda` to manage dependencies.
 
-* install a LaTeX distribution (recommended for paper-quality plots), **or**
-* set `text.usetex = False` in the scripts.
+```bash
+# Clone the repository
+git clone https://github.com/itskalvik/uncertainty-guaranteed-ipp.git
+cd uncertainty-guaranteed-ipp
+
+# Install dependencies
+python -m pip install -r requirements.txt
+```
+> 📝 Note  
+> This installs `sgptools`, which relies on **TensorFlow** and **GPflow**. A GPU is not required.
+
+### 2. LaTeX Dependency
+The plotting scripts (`benchmark.py` and `plot.py`) use LaTeX for publication-quality rendering.
+* **If you have LaTeX installed:** No changes needed.
+* **If you do NOT have LaTeX:** Edit the scripts to set `matplotlib.rcParams["text.usetex"] = False`.
 
 ---
 
-## Quick start
+## 📊 Running Benchmarks
 
-### Run a benchmark
-
-Pick a dataset file:
-
-* `./datasets/N02E021.npy`
-* `./datasets/N17E073.npy`
-* `./datasets/N45W123.npy`
-* `./datasets/N47W124.npy`
-
-Then run, for example:
+### Step 1: Run the IPP Planners
+Execute the benchmark on one of the provided datasets by sweeping through target variance thresholds (expressed as ratios of the initial pilot model's max variance).
 
 ```bash
 python3 benchmark.py ./datasets/N47W124.npy --variance-ratios 0.9 0.8 0.7 0.6 0.5
 ```
 
-**What this does**
+**Methods included:** `HexCover`, `GreedyCover`, `GCBCover`, and `GCBCover-Dist`.  
+**Outputs:** Solution figures and a comprehensive `results.json` file.
 
-* Fits an initial GP model from an automatically generated pilot path.
-* Sweeps target variance thresholds (as *ratios* of the pilot model’s max variance on the evaluation grid).
-* Runs each method (default: `HexCover`, `GreedyCover`, `GCBCover`, `GCBCover-Dist`).
-
-  * **Note on `GCBCover-Dist`:** the benchmark script sets the distance budget to *“unconstrained GCBCover path length minus 20 m”*. This creates a meaningful shortfall that stresses the distance-constrained planner.
-* Saves solution figures and a `results.json` file.
-
-### Plot benchmark metrics
-
-After `benchmark.py` finishes, it writes:
-
-```
-<dataset_stem>/<kernel>/results.json
-```
-
-Example:
+### Step 2: Generate Plots
+Once the benchmark completes, visualize the performance metrics (MSE, SMSE, Runtime, Distance, etc.):
 
 ```bash
+# Set the specific results file generated in Step 1
 python3 plot.py N47W124/Attentive/results.json
 ```
 
-This produces one PDF per metric (max posterior variance, MSE, SMSE, runtime, num sensing locations, distance), saved under the dataset-named folder.
+---
+
+## 📝 Key Algorithms
+The following planners are the primary contributions of this work:
+
+* **GreedyCover:** An efficient greedy algorithm for near-optimal IPP with uncertainty guarantees.
+
+* **GCBCover:** Balances information gain and travel costs to solve IPP with uncertainty guarantees under routing constraints.
+
+For standalone use of these planners in your own projects, please refer to the [SGP-Tools documentation](https://www.sgp-tools.com/tutorials/uncertainty_guaranteed_IPP.html).
 
 ---
 
-## Reproducing paper figures
+## 🎓 Citation
 
-* **Benchmark curves (e.g., max variance / distance vs. variance ratio):**
+If you find this work useful for your research, please cite our RSS 2026 paper:
 
-  1. run `benchmark.py` over the desired ratio sweep, then
-  2. run `plot.py` on the produced `results.json`.
-
-* **Method and FoV visualizations:**
-
-  * `fov_plot.ipynb` generates the field-of-view / coverage-map visuals used in the paper’s method section.
-
-* **Introduction comparison plot(s):**
-
-  * `baselines.ipynb` reproduces baseline method visualizations.
-
-* **Method API walkthrough:**
-
-  * `demo.ipynb` shows how to instantiate and run the planners directly.
+```bibtex
+@inproceedings{JakkalaAOA26,
+  author    = {Kalvik Jakkala and Saurav Agarwal and Jason O'Kane and Srinivas Akella},
+  title     = {Informative Path Planning with Guaranteed Estimation Uncertainty},
+  booktitle = {Robotics: Science and Systems (RSS)},
+  year      = {2026},
+  url       = {https://www.itskalvik.com/publication/uncertainty-guaranteed-ipp/}
+}
+```
 
 ---
 
-## Notes on reproducibility
-
-* `benchmark.py` fixes random seeds for NumPy and TensorFlow (`1234`) for repeatability.
-* If you run on GPU, TensorFlow may still exhibit nondeterminism depending on your stack.
-
----
+## ⚖️ Notes on Reproducibility
+* **Seeds:** `benchmark.py` sets `numpy` and `tensorflow` random seeds.
+* **Hardware:** Minor variations in floating-point math may occur if running on a GPU; however, the algorithmic trends remain consistent.

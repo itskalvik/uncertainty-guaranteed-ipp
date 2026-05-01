@@ -1,0 +1,3 @@
+sgptools==2.0.7
+tensorflow==2.19.1
+tensorflow-probability==0.25.0
