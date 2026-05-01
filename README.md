@@ -5,9 +5,18 @@
 [![Conference](https://img.shields.io/badge/RSS-2026-blue)](https://roboticsconference.org/)
 [![Library](https://img.shields.io/badge/Powered%20by-sgp--tools-green)](https://www.sgp-tools.com/)
 
+<p align="center">
+  <img src=".assets/SGP-Tools.png#gh-light-mode-only" alt="SGP-Tools Logo" width="300"/>
+  <img src=".assets/logo_dark.png#gh-dark-mode-only" alt="SGP-Tools Logo" width="300"/>
+</p>
 Official repository for the paper **"Informative Path Planning with Guaranteed Estimation Uncertainty"**, published at **Robotics: Science and Systems (RSS), 2026**.
 
 This repository contains the benchmarking suite and scripts required to reproduce the figures and experimental results presented in the paper. Our core IPP planners—**GreedyCover** and **GCBCover**—are integrated into the [SGP-Tools](https://www.sgp-tools.com/) library.
+
+<p align="center">
+  <img src=".assets/asv.gif" width="49%">
+  <img src=".assets/auv.gif" width="49%">
+</p>
 
 ---
 
