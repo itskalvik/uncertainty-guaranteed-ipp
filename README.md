@@ -3,11 +3,15 @@
 
 [![Paper](https://img.shields.io/badge/arXiv-2602.05198-B31B1B.svg)](https://arxiv.org/pdf/2602.05198)
 [![Conference](https://img.shields.io/badge/RSS-2026-blue)](https://roboticsconference.org/)
+[![Library](https://img.shields.io/badge/Powered%20by-sgp--tools-green)](https://www.sgp-tools.com/)
 
 <p align="center">
   <a href="https://www.sgp-tools.com/" target="_blank">
-    <img src=".assets/SGP-Tools.png#gh-light-mode-only" alt="SGP-Tools Logo" width="300"/>
-    <img src=".assets/logo_dark.png#gh-dark-mode-only" alt="SGP-Tools Logo" width="300"/>
+    <picture>
+      <source media="(prefers-color-scheme: light)" srcset=".assets/logo_dark.png">
+      <source media="(prefers-color-scheme: dark)" srcset=".assets/SGP-Tools.png">
+      <img alt="SGP-Tools Logo" src=".assets/SGP-Tools.png" width="300">
+    </picture>
   </a>
 </p>
 
