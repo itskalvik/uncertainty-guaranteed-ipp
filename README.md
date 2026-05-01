@@ -5,15 +5,12 @@
 [![Conference](https://img.shields.io/badge/RSS-2026-blue)](https://roboticsconference.org/)
 [![Library](https://img.shields.io/badge/Powered%20by-sgp--tools-green)](https://www.sgp-tools.com/)
 
-<p align="center">
-  <a href="https://www.sgp-tools.com/" target="_blank">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset=".assets/logo_dark.png">
-      <source media="(prefers-color-scheme: light)" srcset=".assets/SGP-Tools.png">
-      <img alt="SGP-Tools Logo" src=".assets/SGP-Tools.png" width="300">
-    </picture>
-  </a>
-</p>
+<div align="center">
+
+[![SGP-Tools Logo](.assets/SGP-Tools.png#gh-light-mode-only)](https://www.sgp-tools.com/)
+[![SGP-Tools Logo](.assets/logo_dark.png#gh-dark-mode-only)](https://www.sgp-tools.com/)
+
+</div>
 
 Official repository for the paper **"Informative Path Planning with Guaranteed Estimation Uncertainty"**, published at **Robotics: Science and Systems (RSS), 2026**.
 
