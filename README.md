@@ -3,7 +3,6 @@
 
 [![Paper](https://img.shields.io/badge/arXiv-2602.05198-B31B1B.svg)](https://arxiv.org/pdf/2602.05198)
 [![Conference](https://img.shields.io/badge/RSS-2026-blue)](https://roboticsconference.org/)
-[![Library](https://img.shields.io/badge/Powered%20by-sgp--tools-green)](https://www.sgp-tools.com/)
 
 <p align="center">
   <a href="https://www.sgp-tools.com/#gh-light-mode-only">
