@@ -171,14 +171,15 @@ def plot_metrics(
 
         if key == "max_posterior_var":
             target_vals = [target_var_by_ratio[vr] for vr in variance_ratios]
-            ax.plot(
+            hline = ax.plot(
                 variance_ratios,
                 target_vals,
                 linestyle="--",
                 linewidth=2.0,
                 marker=None,
+                color="black",
                 label="Target Variance",
-            )
+            )[0]
 
         ax.set_title(f"{label} vs Variance Ratio")
         ax.set_xlabel("Variance Ratio")
@@ -186,6 +187,8 @@ def plot_metrics(
         ax.grid(True, alpha=0.3)
         if "Runtime" in label:
             ax.legend(framealpha=0.5, loc="upper left")
+        elif "Max Posterior Variance" in label:
+            ax.legend([hline], [hline.get_label()], framealpha=0.5, loc="lower left")
 
         # x-axis from largest to smallest
         ax.invert_xaxis()
