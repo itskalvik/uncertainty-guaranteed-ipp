@@ -32,7 +32,7 @@ def load_results(path):
 
 def prepare_data(data):
     runs = data["runs"]
-    methods = ["GreedyCover", "GCBCover", "GCBCover-Dist", "HexCover", "ContinuousSGP"]
+    methods = ["GCBCover", "ContinuousSGP", "GreedyCover", "HexCover", "GCBCover-Dist"]
     variance_ratios = sorted({float(r["variance_ratio"]) for r in runs})
 
     lookup = {(r["method"], float(r["variance_ratio"])): r for r in runs}
@@ -186,7 +186,15 @@ def plot_metrics(
         ax.set_ylabel(label)
         ax.grid(True, alpha=0.3)
         if "Runtime" in label:
-            ax.legend(framealpha=0.5, loc="upper left")
+            # Get handles and labels
+            handles, labels = ax.get_legend_handles_labels()
+
+            # Define the new order (e.g., swapping them)
+            order = [2, 0, 4, 3, 1]
+            reordered_handles = [handles[i] for i in order]
+            reordered_labels = [labels[i] for i in order]
+
+            ax.legend(reordered_handles, reordered_labels, framealpha=0.5, loc="upper left")
         elif "Max Posterior Variance" in label:
             ax.legend([hline], [hline.get_label()], framealpha=0.5, loc="lower left")
 
@@ -200,7 +208,7 @@ def plot_metrics(
 
         figures.append(fig)
 
-    plt.show()
+    plt.close()
 
 
 def main():
