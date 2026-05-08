@@ -4,9 +4,6 @@ import json
 import argparse
 from time import time
 
-os.environ["TF_ENABLE_ONEDNN_OPTS"] = "0"  # Disable oneDNN to avoid potential numerical issues in GPFlow optimization
-os.environ["CUDA_VISIBLE_DEVICES"] = "-1"  # Force CPU usage for reproducibility
-
 # --- NO TYPE 3 FONTS IN PDF OUTPUT ---
 import matplotlib as mpl
 mpl.rcParams["pdf.fonttype"] = 42
