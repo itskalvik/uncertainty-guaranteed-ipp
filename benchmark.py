@@ -362,7 +362,7 @@ def main():
                 method_name = method.replace('-Dist', ' (Dist Budget)')
             else:
                 method_name = method
-            fig.suptitle(f"{method_name}; Num Placements: {len(X_sol)}; Max Prior Var: {max_prior_var:.2f}; Max Posterior Var: {max_post_var:.2f}; MSE: {mse_e:.2f}; SMSE: {smse_e:.2f}; Runtime: {run_time:.2f} s; Distance: {distance:.0f} m", fontsize=14)
+            fig.suptitle(f"{method_name}; Num Placements: {len(X_sol)}; Max Posterior Var: {max_post_var:.2f}; MSE: {mse_e:.2f}; SMSE: {smse_e:.2f}; Runtime: {run_time:.2f} s; Distance: {distance:.0f} m", fontsize=14)
 
             # GP mean predictions
             sc1 = axes[0].imshow(
