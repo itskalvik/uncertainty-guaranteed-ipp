@@ -18,10 +18,10 @@ Official repository for the paper **"Informative Path Planning with Guaranteed E
 This repository contains the benchmarking scripts used to produce the figures and experimental results presented in the paper. Our core IPP planners—**GreedyCover** and **GCBCover**—are integrated into the [SGP-Tools](https://www.sgp-tools.com/) library.
 
 <p align="center">
-  <a href="https://youtu.be/9ghPcQJtmWE" target="_blank">
+  <a href="https://youtu.be/w2nqeO2Ayro" target="_blank">
     <img src=".assets/asv.gif" width="49%">
   </a>
-  <a href="https://youtu.be/fwG-EzzaCtk" target="_blank">
+  <a href="https://youtu.be/ZBJ_pd1cSD8" target="_blank">
     <img src=".assets/auv.gif" width="49%">
   </a>
 </p>
