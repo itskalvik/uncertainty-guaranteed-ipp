@@ -26,7 +26,7 @@ This repository contains the benchmarking scripts used to produce the figures an
   </a>
 </p>
 
-<a href="https://www.youtube.com/watch?v=oWUfxSHt7jU" title="Informative Path Planning with Guaranteed Estimation Uncertainty | RSS 2026">
+<a href="https://www.youtube.com/watch?v=OF0XIoC99RQ" title="Informative Path Planning with Guaranteed Estimation Uncertainty | RSS 2026">
   <img src="https://res.cloudinary.com/marcomontalbano/image/upload/v1779944700/video_to_markdown/images/youtube--oWUfxSHt7jU-c05b58ac6eb4c4700831b2b3070cd403.jpg" alt="Informative Path Planning with Guaranteed Estimation Uncertainty | RSS 2026" style="width: 100%; height: auto;" />
 </a>
 
